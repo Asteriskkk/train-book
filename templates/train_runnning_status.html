@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" ng-controller="myCtrl">
+<head>
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">-->
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $http,$filter) {
+  $scope.main=false; 
+  $scope.save = function(abc,dat){ 
+      $scope.main=true; 
+      $scope.main=$filter('date')(dat, 'yyyyMMdd');
+    var date=$scope.main;
+    console.log(date);
+    $http({
+    method : "GET",
+//        url : "http://api.railwayapi.com/live/train/"+abc+"/doj/"+date+"/apikey/b7avi8tc/",
+//        url : "http://api.railwayapi.com/live/train/"+abc+"/doj/"+date+"/apikey/rbvhemsv/",
+//          url : "http://api.railwayapi.com/live/train/"+abc+"/doj/"+date+"/apikey/4o65hx40/",
+        
+    url : "http://api.railwayapi.com/live/train/"+abc+"/doj/"+date+"/apikey/f5h244fcgf/",
+  }).then(function mySuccess(response) {
+      $scope.myWelcome = response.data.route;
+      $scope.myWelcome1 = response.data.position;
+      console.log($scope.myWelcome);
+      console.log($scope.myWelcome1);
+    }, 
+    function myError(response) {
+      $scope.myWelcome = response.statusText;
+      console.log($scope.myWelcome);
+  });
+
+} 
+
+
+
+});
+</script>
+
+
+
+<style type="text/css">
+  ::-webkit-input-placeholder{
+        text-align: center;
+        color:green;
+    
+    }
+  
+   img{
+  margin-left: 28px;
+}
+    
+    .table
+    {
+      background-color: antiquewhite;
+        border-top-left-radius:8px;
+        border-top-right-radius:8px;
+    
+    }
+
+  input[type='text']
+{
+    border-radius:6px;
+    border-width: 1px;
+    width:200px;
+    height:36px;
+}
+
+
+input[type='date']
+{
+    border-radius:8px;
+    border-width: 1px;
+    height:36px;
+  }
+
+  .main{
+
+    margin-top: 30px;
+
+  }
+
+
+button[type='submit']
+{
+   background-color: green;
+   width: 250px;
+  margin-left:20px ;
+
+  }
+
+  .second{
+
+    margin-top: 30px;
+  }
+
+
+
+nav.navbar-webmaster { background: #1b242c;}
+nav.navbar-webmaster a { color: #fff; }
+nav.navbar-webmaster ul.navbar-nav a { color: #fff; border-style: solid; border-width: 2px 0 0 0; border-color:#1b242c; }
+nav.navbar-webmaster ul.navbar-nav a:hover,
+nav.navbar-webmaster ul.navbar-nav a:visited,
+nav.navbar-webmaster ul.navbar-nav a:focus,
+nav.navbar-webmaster ul.navbar-nav a:active { background:#3b4045; }
+nav.navbar-webmaster ul.navbar-nav a:hover {border-color: #5fb000; }
+nav.navbar-webmaster li.divider { background: #ccc; }
+nav.navbar-webmaster button.navbar-toggle { background:  #1b242c; border-radius: 2px; }
+nav.navbar-webmaster button.navbar-toggle:hover { background: #999; }
+nav.navbar-webmaster button.navbar-toggle > span.icon-bar { background: #fff; }
+nav.navbar-webmaster ul.dropdown-menu { border: 0; background: #fff; border-radius: 4px; margin: 4px 0; box-shadow: 0 0 4px 0 #ccc; }
+nav.navbar-webmaster ul.dropdown-menu > li > a { color: #444; }
+nav.navbar-webmaster ul.dropdown-menu > li > a:hover { background: #f14444; color: #fff; }
+nav.navbar-webmaster span.badge { background: #f14444; font-weight: normal; font-size: 11px; margin: 0 4px; }
+nav.navbar-webmaster span.badge.new { background: rgba(255, 0, 0, 0.8); color: #fff; }
+
+
+
+body{
+  background-image:url(/static/railroad_tracks-wallpaper-1280x800.jpg);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+td:nth-child(n + 9) {
+    visibility: collapse;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+
+<div class="row">
+  
+<nav class="navbar navbar-webmaster">
+    <div class="container">
+      <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    <a  href="{%  url 'main' %}" class="navbar-brand" ><img src="/static/train-xxl.png" width=20px >train Info</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+<li class="active"> <a href="{%  url 'between' %}">Train between station<span class="sr-only"> </span></a></li>
+        <li class="active"> <a href="{%  url 'seat' %}">Seat Availability<span class="sr-only"> </span></a></li>
+        <li class="active"> <a href="{%  url 'route' %}">Train Route<span class="sr-only"> </span></a></li>
+        <li class="active"> <a href="{%  url 'fare' %}">Train Fare<span class="sr-only"> </span></a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+</div>
+
+{% verbatim %}
+
+
+<form ng-submit="save(stack,FromDate)">
+
+<div class="row main">
+
+  <div class="col-md-offset-3 col-md-2">
+      <input type="text" placeholder="train number"ng-model="stack">
+  </div>
+
+  <div class="col-md-offset-1 col-md-2">
+
+      <input type="date" ng-model="FromDate" /> 
+  </div>
+</div>
+
+
+
+<div class="row second">
+  <div class="col-md-offset-4 col-centered">
+
+    <button type="submit" class="btn btn-default" >Search</button>
+
+  </div>
+</div>
+
+</form>
+
+
+<br>
+
+<div class="row">
+  
+    <div ng-if="myWelcome.length != 0">
+    
+    <div class="alert alert-success" ng-show="main">
+    <p style="color:red ;font-size:22px">{{myWelcome1}}</p>
+  </div>
+  </div>
+    
+     <div ng-if="myWelcome.length == 0">
+    <div class="alert alert-success" ng-show="main">
+    <p style="color:black ;font-size:22px">Train doesn't run on Given Date.</p>
+  </div>
+  </div>
+
+
+</div>
+    
+<br>
+
+
+<div class="row">
+  <div>
+    <table class="table" ng-show="main">
+
+  <thead class="thead-inverse">
+    <tr>
+      <th>sr.no</th>
+      <th>Station/code</th>
+      <th>Sch. Arrival</th>
+       <th>Sch. Departure</th>
+      <th>Actual Arrival / Departure</th>
+      <th>Day</th>
+       <th>Distance</th>
+      <th>Train Status</th>
+    </tr>
+  </thead>
+
+
+  <tbody ng-repeat="x in myWelcome ">
+
+    <tr>
+      <td>{{x.no}}</td>
+      <td>{{x.station_.name}}&nbsp;/&nbsp;{{x.station_.code}}</td>
+      <td>{{x.scharr}}</td>
+       <td>{{x.schdep}}</td>
+         <td>{{x.actarr}}&nbsp;/&nbsp;{{x.actdep}}</td>
+         <td>{{x.day}}</td>
+         <td>{{x.distance}} km</td>
+         <td ng-if="'-1 mins late' == x.status"><p style="color:red">1 mins before</p></td>
+        <td ng-if=" '-2 mins late' == x.status"><p style="color:red">2 mins before</p></td>
+        <td ng-if=" '-3 mins late' == x.status"><p style="color:red">3 mins before</p></td>
+        <td ng-if=" '-4 mins late' == x.status"><p style="color:red">4 mins before</p></td>
+        <td ng-if=" '-5 mins late' == x.status"><p style="color:red">5 mins before</p></td>
+        <td ng-if=" '-6 mins late' == x.status"><p style="color:red">6 mins before</p></td>
+        <td ng-if=" '-7 mins late' == x.status"><p style="color:red">7 mins before</p></td>
+        <td ng-if=" '-8 mins late' == x.status"><p style="color:red">8 mins before</p></td>
+         <td ng-if=" '-9 mins late' == x.status"><p style="color:red">9 mins before</p></td>
+        <td ng-if=" '-10 mins late' == x.status"><p style="color:red">10 mins before</p></td>
+        <td ng-if=" '-11 mins late' == x.status"><p style="color:red">11 mins before</p></td>
+        <td ng-if=" '-12 mins late' == x.status"><p style="color:red">12 mins before</p></td>
+        <td ng-if=" '-13 mins late' == x.status"><p style="color:red">13 mins before</p></td>
+        <td ng-if=" '-14 mins late' == x.status"><p style="color:red">14 mins before</p></td>
+        <td ng-if=" '-15 mins late' == x.status"><p style="color:red">15 mins before</p></td>
+        <td ng-if=" '-16 mins late' == x.status"><p style="color:red">16 mins before</p></td>
+         <td ng-if=" '-17 mins late' == x.status"><p style="color:red">17 mins before</p></td>
+        <td ng-if=" '-18 mins late' == x.status"><p style="color:red">18 mins before</p></td>
+        <td ng-if=" '-19 mins late' == x.status"><p style="color:red">19 mins before</p></td>
+        <td ng-if=" '-20 mins late' == x.status"><p style="color:red">20 mins before</p></td>
+        <td ng-if=" '-21 mins late' == x.status"><p style="color:red">21 mins before</p></td>
+        <td ng-if=" '-22 mins late' == x.status"><p style="color:red">22 mins before</p></td>
+        <td ng-if=" '-23 mins late' == x.status"><p style="color:red">23 mins before</p></td>
+        <td ng-if=" '-24 mins late' == x.status"><p style="color:red">24 mins before</p></td>
+         <td ng-if=" '-25 mins late' == x.status"><p style="color:red">25 mins before</p></td>
+        <td ng-if=" '-26 mins late' == x.status"><p style="color:red">26 mins before</p></td>
+        <td ng-if=" '-27 mins late' == x.status"><p style="color:red">27 mins before</p></td>
+        <td ng-if=" '-28 mins late' == x.status"><p style="color:red">28 mins before</p></td>
+        <td ng-if=" '-29 mins late' == x.status"><p style="color:red">29 mins before</p></td>
+        <td ng-if=" '-30 mins late' == x.status"><p style="color:red">30 mins before</p></td>
+        <td ng-if=" '-31 mins late' == x.status"><p style="color:red">31 mins before</p></td>
+        <td ng-if=" '-32 mins late' == x.status"><p style="color:red">32 mins before</p></td>
+         <td ng-if=" '-33 mins late' == x.status"><p style="color:red">33 mins before</p></td>
+        <td ng-if=" '-34 mins late' == x.status"><p style="color:red">34 mins before</p></td>
+        <td ng-if=" '-35 mins late' == x.status"><p style="color:red">35 mins before</p></td>
+        <td ng-if=" '-36 mins late' == x.status"><p style="color:red">36 mins before</p></td>
+        <td ng-if=" '-37 mins late' == x.status"><p style="color:red">37 mins before</p></td>
+        <td ng-if=" '-38 mins late' == x.status"><p style="color:red">38 mins before</p></td>
+        <td ng-if=" '-39 mins late' == x.status"><p style="color:red">39 mins before</p></td>
+        <td ng-if=" '-40 mins late' == x.status"><p style="color:red">40 mins before</p></td>
+         <td ng-if=" '-41 mins late' == x.status"><p style="color:red">41 mins before</p></td>
+        <td ng-if=" '-42 mins late' == x.status"><p style="color:red">42 mins before</p></td>
+        <td ng-if=" '-43 mins late' == x.status"><p style="color:red">43 mins before</p></td>
+        <td ng-if=" '-44 mins late' == x.status"><p style="color:red">44 mins before</p></td>
+        <td ng-if=" '-45 mins late' == x.status"><p style="color:red">45 mins before</p></td>
+        <td ng-if=" '-46 mins late' == x.status"><p style="color:red">46 mins before</p></td>
+        <td ng-if=" '-47 mins late' == x.status"><p style="color:red">47 mins before</p></td>
+        <td ng-if=" '-48 mins late' == x.status"><p style="color:red">48 mins before</p></td>
+        <td ng-if=" '-49 mins late' == x.status"><p style="color:red">49 mins before</p></td>
+        <td ng-if=" '-50 mins late' == x.status"><p style="color:red">50 mins before</p></td>
+        <td ng-if=" '-51 mins late' == x.status"><p style="color:red">51 mins before</p></td>
+        <td ng-if=" '-52 mins late' == x.status"><p style="color:red">52 mins before</p></td>
+        <td ng-if=" '-53 mins late' == x.status"><p style="color:red">53 mins before</p></td>
+        <td ng-if=" '-54 mins late' == x.status"><p style="color:red">54 mins before</p></td>
+        <td ng-if=" '-55 mins late' == x.status"><p style="color:red">55 mins before</p></td>
+        <td ng-if=" '-56 mins late' == x.status"><p style="color:red">56 mins before</p></td>
+        <td ng-if=" '-57 mins late' == x.status"><p style="color:red">57 mins before</p></td>
+        <td ng-if=" '-58 mins late' == x.status"><p style="color:red">58 mins before</p></td>
+        <td ng-if=" '-59 mins late' == x.status"><p style="color:red">59 mins before</p></td>
+        <td ng-if=" '-60 mins late' == x.status"><p style="color:red">60 mins before</p></td>
+        
+        
+        <td ng-if="'-1 mins late' != x.status">{{x.status}}</td>
+<!--
+        <td ng-if=" '-2 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-3 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-4 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-5 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-6 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-7 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-8 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+         <td ng-if=" '-9 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-10 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-11 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-12 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-13 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-14 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-15 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-16 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+         <td ng-if=" '-17 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-18 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-19 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-20 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-21 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-22 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-23 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-24 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+         <td ng-if=" '-25 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-26 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-27 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-28 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-29 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-30 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-31 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-32 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+         <td ng-if=" '-33 mins late'!= x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-34 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-35 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-36 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-37 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-38 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-39 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-40 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+         <td ng-if=" '-41 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-42 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-43 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-44 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-45 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-46 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-47 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-48 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-49 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-50 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-51 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-52 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-53 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-54 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-56 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-57 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-58 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-59 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+        <td ng-if=" '-60 mins late' != x.status"><p style="color:red">{{x.status}}</p></td>
+-->
+        
+        
+<!--        <td ng-if=" '-5 mins late' != x.status">{{x.status}}</td>-->
+    </tr>
+  </tbody>
+
+
+
+</table>
+
+  </div>
+
+
+</div>
+
+
+</div>
+
+</body>
+{% endverbatim %}
+</html>

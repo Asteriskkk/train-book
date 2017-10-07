@@ -1,0 +1,482 @@
+
+
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" ng-controller="myCtrl">
+<head>
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">-->
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $http,$filter) {
+  $scope.main=false; 
+  $scope.save = function(number,date,source,dest,varw,vars){ 
+  	
+      $scope.main=true; 
+       $scope.main=$filter('date')(date, 'dd-MM-yyyy');
+       var date=$scope.main;
+    console.log(number,date,source,dest,varw,vars);
+    $http({
+    method : "GET",
+//        url : "http://api.railwayapi.com/live/train/"+abc+"/doj/"+date+"/apikey/b7avi8tc/",
+//        url : "http://api.railwayapi.com/live/train/"+abc+"/doj/"+date+"/apikey/rbvhemsv/",
+//          url : "http://api.railwayapi.com/live/train/"+abc+"/doj/"+date+"/apikey/4o65hx40/",
+        
+    // url :"http://api.railwayapi.com/check_seat/train/12454/source/NDLS/dest/RNC/date/01-07-2017/class/3A/quota/GN/apikey/4o65hx40/",
+
+
+    url :"http://api.railwayapi.com/fare/train/"+number+"/source/"+source+"/dest/"+dest+"/age/"+vars+"/quota/"+varw+"/doj/"+date+"/apikey/f5h244fcgf/",
+
+  }).then(function mySuccess(response) {
+
+
+      $scope.name = response.data;
+      $scope.fare = response.data.fare;
+      $scope.from = response.data.from;
+      $scope.to = response.data.to;
+      $scope.quota = response.data.quota;
+      $scope.train = response.data.train;
+      // $scope.route = response.data.route;
+      // $scope.days = response.data.train.days;
+
+      // $scope.source = response.data.route[0].fullname;
+      // $scope.source_code = response.data.route[0].code;
+
+      // console.log($scope.name);
+
+
+
+
+    }, 
+    function myError(response) {
+      $scope.myWelcome = response.statusText;
+      console.log($scope.myWelcome);
+  });
+
+} 
+
+
+
+});
+</script>
+
+
+
+<style type="text/css">
+  
+    
+    
+   /* .table
+    {
+      background-color: antiquewhite;
+        border-top-left-radius:8px;
+        border-top-right-radius:8px;
+    
+    }*/
+
+  input[type='text']
+{
+    border-radius:6px;
+    border-width: 1px;
+    width:200px;
+    height:38px;
+    text-align: center;
+}
+
+  input[type='date']
+{
+    border-radius:6px;
+    border-width: 1px;
+    width:200px;
+    height:36px;
+   
+}
+
+.box{
+	width:230px;
+    height:36px;
+
+
+}
+
+.boxs{
+	width:230px;
+    height:36px;
+    margin-left: 162px;
+  
+
+}
+
+
+order-width: 1px;
+  }
+
+  .main{
+
+    margin-top: 30px;
+
+  }
+
+
+button[type='submit']
+{
+   background-color: green;
+   width: 180px;
+  margin-left:20px ;
+
+  }
+
+  .second{
+
+    align-content: center;
+  }
+/* th
+    {
+      background-color: black;
+      color: white;
+
+    }*/
+
+
+
+
+
+
+
+nav.navbar-webmaster { background: #1b242c;}
+nav.navbar-webmaster a { color: #fff; }
+nav.navbar-webmaster ul.navbar-nav a { color: #fff; border-style: solid; border-width: 2px 0 0 0; border-color:#1b242c; }
+nav.navbar-webmaster ul.navbar-nav a:hover,
+nav.navbar-webmaster ul.navbar-nav a:visited,
+nav.navbar-webmaster ul.navbar-nav a:focus,
+nav.navbar-webmaster ul.navbar-nav a:active { background:#3b4045; }
+nav.navbar-webmaster ul.navbar-nav a:hover {border-color: #5fb000; }
+nav.navbar-webmaster li.divider { background: #ccc; }
+nav.navbar-webmaster button.navbar-toggle { background:  #1b242c; border-radius: 2px; }
+nav.navbar-webmaster button.navbar-toggle:hover { background: #999; }
+nav.navbar-webmaster button.navbar-toggle > span.icon-bar { background: #fff; }
+nav.navbar-webmaster ul.dropdown-menu { border: 0; background: #fff; border-radius: 4px; margin: 4px 0; box-shadow: 0 0 4px 0 #ccc; }
+nav.navbar-webmaster ul.dropdown-menu > li > a { color: #444; }
+nav.navbar-webmaster ul.dropdown-menu > li > a:hover { background: #f14444; color: #fff; }
+nav.navbar-webmaster span.badge { background: #f14444; font-weight: normal; font-size: 11px; margin: 0 4px; }
+nav.navbar-webmaster span.badge.new { background: rgba(255, 0, 0, 0.8); color: #fff; }
+
+
+
+body{
+  background-image:url(/static/railway-wallpaper-1280x800.jpg);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+img{
+  margin-left: 28px;
+}
+
+
+  ::-webkit-input-placeholder{
+        text-align: center;
+        color:green;
+    
+    }
+
+
+
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+
+<div class="row">
+  
+<nav class="navbar navbar-webmaster">
+    <div class="container">
+      <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a  href="{%  url 'main' %}" class="navbar-brand" ><img src="/static/train-xxl.png" width=20px >train Info</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+  <li class="active"> <a href="{%  url 'running' %}">Train running station<span class="sr-only"> </span></a></li>
+  <li class="active"> <a href="{%  url 'seat' %}">Seat Availability<span class="sr-only"> </span></a></li>
+        
+        <li class="active"> <a href="{%  url 'between' %}">Train between station<span class="sr-only"> </span></a></li>
+        <li class="active"> <a href="{%  url 'route' %}">Train route<span class="sr-only"> </span></a></li>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+</div>
+
+
+<br>
+<br>
+<br>
+{% verbatim %}
+<form ng-submit="save(number,date,source,dest,varw,vars)">
+
+<div class="row main">
+
+
+
+  <div class="col-md-offset-3 col-md-2">
+      <input type="text" placeholder="train number"  ng-model="number">
+  </div>
+
+<div class="col-md-offset-2 col-md-2">
+      <input type="date"   ng-model="date">
+  </div>
+</div>
+<br>
+
+<div class="row main">
+
+
+
+  <div class="col-md-offset-3 col-md-2">
+      <input type="text" placeholder="station from"  ng-model="source">
+  </div>
+
+<div class="col-md-offset-2 col-md-2">
+     <input type="text" placeholder="station to"  ng-model="dest">
+  </div>
+</div>
+
+
+
+<br>
+<div class="row main">  
+  <div class="col-md-offset-3 col-md-2 box">
+ <strong>Quota</strong>
+      <select class="form-control" ng-model="varw">
+
+      <option value="GN" >General Quota</option>
+      <option value="TQ" >Tatkal Quota</option>
+	  <option value="PT" >Premium Tatkal Quota</option>
+      <option value="LD" >Ladies Quota</option>
+      <option value="HO" >Head quarters/high official Quota</option>
+      <option value="DF" >	Defence Quota</option>
+      <option value="PH" > Parliament house Quota</option>
+      <option value="FT" >Foreign Tourist Quota</option>
+      <option value="DP" >Duty Pass Quota</option>
+      <option value="SS" >Female(above 45 Year)/Senior Citizen/Travelling alone </option>
+       <option value="HP" >Physically Handicapped Quota</option>
+        <option value="GNRS" > General Quota Road Side</option>
+        <option value="OS" > Out Station</option>
+        <option value="PQ" > Pooled Quota</option>
+        <option value="RC(RAC)" > Reservation Against Cancellation</option>
+      <option value="RS" >Road Side</option>
+        <option value="YU" > Yuva</option>
+        <option value="LB">Lower Berth</option>
+        <option value="RE" >Railway Employee Staff on Duty for the train
+</option>
+      </select>
+  </div>
+
+<div class="col-md-2 boxs">
+ <strong>Age</strong>
+
+     <select class="form-control" ng-model="vars">
+
+        <option  value="18">Adult</option>
+        <option  value="60">Senior Citizen</option>
+        <option  value="7">Child</option>
+
+      </select>
+  </div>
+
+</div>
+<br>
+<br>
+
+<div class="row">
+  <div class="col-md-offset-5 col-md-3">
+
+    <button type="submit" class="btn btn-default" >Search</button>
+
+  </div>
+
+</div>
+
+
+</form>
+<br>
+<br>
+
+<div>
+
+<div ng-show="main">
+	
+	 <div class="alert alert-success" >
+    <p style="color:red ;font-size:22px">Fare Details : From  {{from.name}} -({{from.code}}) To   {{to.name}}-({{to.code}})</p>
+  </div>
+</div>
+
+</div>
+
+<div class="row" ng-show="main">
+
+ <div class="col-md-5 col-md-offset-1">
+
+            <div class="panel panel-default panel-table">
+              <div class="panel-heading">
+                <div class="row">
+                  <div class="col col-xs-6">
+                    <strong class="panel-title">TRAIN DETAILS</strong>
+                  </div>
+       
+                </div>
+              </div>
+              <div class="panel-body">
+                <table class="table">
+                  <!-- <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        
+                    </tr> 
+                  </thead> -->
+                  <tbody>
+                          <tr>
+                         <td>
+                         Train Name
+                         </td>
+                         <td>
+                         {{train.name}}
+                         </td>
+                          </tr>
+                          <tr>
+                         <td>
+                         Train Number
+                         </td>
+                         <td>
+                         {{train.number}}
+                         </td>
+                          </tr>
+
+
+                           <tr>
+                         <td>
+                         From Station
+                         </td>
+                         <td>
+                         {{from.name}}-({{from.code}})
+                         </td>
+                          </tr>
+                          <tr>
+                         <td>
+                         To Station
+                         </td>
+                         <td>
+                         {{to.name}}-({{to.code}})
+                         </td>
+                          </tr>
+
+ 						<tr>
+                         <td>
+                         	Travel Quota
+                         </td>
+                         <td>
+                         {{quota.name}}-({{quota.code}})
+                         </td>
+                          </tr>
+                         
+
+
+
+
+
+
+
+
+                        </tbody>
+                </table>
+            
+              </div>
+</div>
+
+
+</div>
+
+
+
+
+
+ <div class="col-md-5 ">
+
+            <div class="panel panel-default panel-table">
+              <div class="panel-heading">
+                <div class="row">
+                  <div class="col col-xs-6">
+                    <strong class="panel-title">TRAIN FARE</strong>
+                  </div>
+       
+                </div>
+              </div>
+              <div class="panel-body">
+                <table class="table">
+                  <thead>
+                    <tr>
+                        <th>Travel Class</th>
+                        <th>Amount</th>
+                        
+                    </tr> 
+                  </thead>
+                  <tbody ng-repeat="x in fare">
+                          <tr>
+                         <td>
+                         	{{x.name}}-({{x.code}})
+                         </td>
+                         <td>
+                        Rs.&nbsp; {{x.fare}}
+                         </td>
+                          </tr>
+                    
+
+                        </tbody>
+                </table>
+            
+              </div>
+</div>
+
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+</body>
+{% endverbatim %}
+</html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" ng-controller="myCtrl">
+<head>
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">-->
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $http,$filter) {
+  $scope.main=false; 
+  $scope.save = function(abc){ 
+      $scope.main=true; 
+      // $scope.main=$filter('date')(dat, 'yyyyMMdd');
+    var date=$scope.main;
+    console.log(date);
+    $http({
+    method : "GET",
+//        url : "http://api.railwayapi.com/live/train/"+abc+"/doj/"+date+"/apikey/b7avi8tc/",
+//        url : "http://api.railwayapi.com/live/train/"+abc+"/doj/"+date+"/apikey/rbvhemsv/",
+//          url : "http://api.railwayapi.com/live/train/"+abc+"/doj/"+date+"/apikey/4o65hx40/",
+        
+    // url :"http://api.railwayapi.com/check_seat/train/12454/source/NDLS/dest/RNC/date/01-07-2017/class/3A/quota/GN/apikey/4o65hx40/",
+
+
+    url :"http://api.railwayapi.com/route/train/"+abc+"/apikey/f5h244fcgf/",
+
+  }).then(function mySuccess(response) {
+
+
+      $scope.name = response.data.train.name;
+      $scope.number = response.data.train.number;
+      $scope.route = response.data.route;
+      $scope.days = response.data.train.days;
+
+      $scope.source = response.data.route[0].fullname;
+      $scope.source_code = response.data.route[0].code;
+
+      console.log($scope.route);
+
+
+
+
+    }, 
+    function myError(response) {
+      $scope.myWelcome = response.statusText;
+      console.log($scope.myWelcome);
+  });
+
+} 
+
+
+
+});
+</script>
+
+
+
+<style type="text/css">
+  
+    
+    
+    .table
+    {
+      background-color: antiquewhite;
+        border-top-left-radius:8px;
+        border-top-right-radius:8px;
+    
+    }
+
+  input[type='text']
+{
+    border-radius:6px;
+    border-width: 1px;
+    width:200px;
+    height:36px;
+    text-align: center;
+}
+
+order-width: 1px;
+  }
+
+  .main{
+
+    margin-top: 30px;
+
+  }
+
+
+button[type='submit']
+{
+   background-color: green;
+   width: 180px;
+  margin-left:20px ;
+
+  }
+img{
+  margin-left: 28px;
+}
+  .second{
+
+    align-content: center;
+  }
+ th
+    {
+      background-color: black;
+      color: white;
+
+    }
+
+
+
+
+
+
+
+nav.navbar-webmaster { background: #1b242c;}
+nav.navbar-webmaster a { color: #fff; }
+nav.navbar-webmaster ul.navbar-nav a { color: #fff; border-style: solid; border-width: 2px 0 0 0; border-color:#1b242c; }
+nav.navbar-webmaster ul.navbar-nav a:hover,
+nav.navbar-webmaster ul.navbar-nav a:visited,
+nav.navbar-webmaster ul.navbar-nav a:focus,
+nav.navbar-webmaster ul.navbar-nav a:active { background:#3b4045; }
+nav.navbar-webmaster ul.navbar-nav a:hover {border-color: #5fb000; }
+nav.navbar-webmaster li.divider { background: #ccc; }
+nav.navbar-webmaster button.navbar-toggle { background:  #1b242c; border-radius: 2px; }
+nav.navbar-webmaster button.navbar-toggle:hover { background: #999; }
+nav.navbar-webmaster button.navbar-toggle > span.icon-bar { background: #fff; }
+nav.navbar-webmaster ul.dropdown-menu { border: 0; background: #fff; border-radius: 4px; margin: 4px 0; box-shadow: 0 0 4px 0 #ccc; }
+nav.navbar-webmaster ul.dropdown-menu > li > a { color: #444; }
+nav.navbar-webmaster ul.dropdown-menu > li > a:hover { background: #f14444; color: #fff; }
+nav.navbar-webmaster span.badge { background: #f14444; font-weight: normal; font-size: 11px; margin: 0 4px; }
+nav.navbar-webmaster span.badge.new { background: rgba(255, 0, 0, 0.8); color: #fff; }
+
+
+
+body{
+  background-image:url(/static/10845751_380656648806523_5734768442971080204_o.jpg);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+
+
+
+  ::-webkit-input-placeholder{
+        text-align: center;
+        color:green;
+    
+    }
+
+
+
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+
+<div class="row">
+  
+<nav class="navbar navbar-webmaster">
+    <div class="container">
+      <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a  href="{%  url 'main' %}" class="navbar-brand" ><img src="/static/train-xxl.png" width=20px >train Info</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+       <li class="active"> <a href="{%  url 'running' %}">Train running station<span class="sr-only"> </span></a></li>
+        <li class="active"> <a href="{%  url 'seat' %}">Seat Availability<span class="sr-only"> </span></a></li>
+        <li class="active"> <a href="{%  url 'between' %}">Train between station<span class="sr-only"> </span></a></li>
+        <li class="active"> <a href="{%  url 'fare' %}">Train Fare<span class="sr-only"> </span></a></li>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+</div>
+
+
+<br>
+<br>
+<br>
+{% verbatim %}
+<form ng-submit="save(stack)">
+
+<div class="row main">
+
+  <div class="col-md-offset-3 col-md-2">
+      <input type="text" placeholder="train number"  ng-model="stack">
+  </div>
+
+
+  <div class="col-md-offset-1 col-md-3">
+
+    <button type="submit" class="btn btn-default" >Search</button>
+
+  </div>
+
+</div>
+
+
+</form>
+
+
+<br>
+<br>
+<br>
+
+<div class="row">
+  
+
+
+<table class="table" ng-show="main">
+                <thead>
+                    <tr>
+                        <th>
+                            Train No
+                        </th>
+                        <th>
+                            Train Name
+                        </th>
+
+
+                        <th>
+                            Runs From Source
+                        </th>
+
+
+                            <th>
+                            <th>
+                         
+                            </th>
+                            <th>
+                          
+                            </th>
+                            <th>
+                          
+                            </th>
+                            <th>
+                            Runs On
+                            </th>
+                            </th>
+
+                        
+      
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="active">
+                        <td>
+                        {{number}}
+                           
+                        </td>
+                        <td> 
+                        {{name}}
+                            
+                        </td>
+                        <td>
+                            {{source}}&nbsp;&nbsp; / &nbsp;&nbsp;{{source_code}}
+                        </td>
+                       
+                        <td>
+
+
+
+                        <td ng-repeat="x in days">
+                            {{x["day-code"]}}
+                            <br>
+                            <br>
+
+                            <p ng-if="'N' == x.runs">&nbsp;&nbsp;&nbsp;-</p>
+                            <p ng-if="'Y' == x.runs">&nbsp;&nbsp;&nbsp;{{x.runs}}</p>
+
+                        </td>
+
+          
+
+
+
+                       
+                        </td>
+                      
+
+                    </tr>
+                    
+                    
+                </tbody>
+            </table>
+
+
+</div>
+    
+<br>
+
+
+<div class="row">
+  <div>
+    <table class="table tables" ng-show="main">
+ <thead class="thead-inverse">
+      <tr>
+        <th>SNo</th>
+        <th>Stn Code</th>
+        <th>Stn Name</th>
+        <th>Route No.</th>
+        <th>Arrival Time</th>
+        <th>Dep. Time</th>
+        <th>Halt Time (In Minutes)</th>
+        <th>Distance</th>
+        <th>Day</th>
+        
+
+      </tr>
+    </thead>
+
+    <tbody ng-repeat="y in route">
+      <tr>
+        <td>{{y.no}}</td>
+
+         <td>
+    {{y.code}}
+         </td>
+
+  <td>
+    {{y.fullname}}
+         </td>
+
+  <td>
+    {{y.route}}
+         </td>
+
+
+
+<td>
+    {{y.scharr}}
+         </td>
+
+         <td>
+    {{y.schdep}}
+         </td>
+
+
+         <td align="center">
+    {{y.halt}}
+         </td>
+
+
+
+
+         <td>
+    {{y.distance}}Km
+         </td>
+
+
+
+         <td>
+    {{y.day}}
+         </td>
+
+      </tr>
+    
+    </tbody>
+
+
+
+
+</table>
+
+  </div>
+
+
+</div>
+
+
+</div>
+
+</body>
+{% endverbatim %}
+</html>

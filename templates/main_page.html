@@ -1,0 +1,99 @@
+{% load static %}
+<html>
+<head>
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    
+    
+    <style>
+        
+        body{
+            
+    background-image:url( /static/1280x720-data-out-200-68452584-train-backgrounds-wallpapers.jpg);
+             -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+            
+        }
+    .btn-outline {
+    background-color:white;
+    color: inherit;
+    transition: all .5s;
+        opacity: 0.8;
+        
+}
+
+.btn-primary.btn-outline {
+    color: #428bca;
+}
+
+.btn-success.btn-outline {
+    color: green;
+}
+
+.btn-info.btn-outline {
+    color: blue;
+}
+
+.btn-warning.btn-outline {
+    color:blue;
+}
+
+.btn-danger.btn-outline {
+    color:black;
+}
+
+.btn-primary.btn-outline:hover,
+.btn-success.btn-outline:hover,
+.btn-info.btn-outline:hover,
+.btn-warning.btn-outline:hover,
+.btn-danger.btn-outline:hover {
+    opacity:7;
+    color: #fff;
+}
+        
+        .container
+        
+        {
+         margin-top:3cm;
+        margin-left:11cm;
+        }
+        
+    </style>
+    </head>
+
+    
+
+    <body>
+    <div class="container">
+	<div class="row">
+        
+    <div class="col-md-offset-1">
+
+    	    <a  href="{%  url 'running' %}" class="btn btn-primary btn-outline">
+              <img src="static/noun_4420.png" width=20px >
+                
+                TARIN RUNNING STATUS</a>
+                <a  href="{%  url 'seat' %}" class="btn btn-primary btn-outline">
+              <img src="static/noun_4420.png" width=20px >
+                
+                SEAT AVAILABITLITY</a>
+            <a   href="{%  url 'between' %}" class="btn btn-success btn-outline"><img src="static/noun_10880_cc.png" width=20px >&nbsp;TRAIN BETWEEN STATION</a>
+            <a   href="{%  url 'route' %}" class="btn btn-warning btn-outline"><img src="static/noun_473415_cc.png" width=20px >&nbsp;TRAIN ROUTE</a>
+            <a   href="{%  url 'fare' %}" class="btn btn-danger btn-outline"><img src=" static/noun_381585_cc.png" width=20px >TRAIN FARE</a>
+    
+            
+        </div>
+	</div>
+</div>
+    </body>
+
+</html>
